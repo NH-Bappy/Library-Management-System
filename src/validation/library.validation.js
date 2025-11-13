@@ -2,7 +2,7 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 const { CustomError } = require("../utils/customError");
 
-// ✅ Joi Validation Schema — only required fields
+
 const bookValidationSchema = Joi.object({
     title: Joi.string().trim().required().messages({
         "string.empty": "Book title cannot be empty.",
