@@ -26,3 +26,12 @@
 500 Internal Server Error
 503 Service Unavailable
 504 Gateway Timeout
+
+
+
+delete node module and env or anything git commit
+
+git rm -r --cached node_modules
+git rm --cached .env
+git commit -m "Remove node_modules and .env from repository tracking"
+git push origin main
