@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
-const { CustomError } = require("../utils/customError");
+const { CustomError } = require("../utils/CustomError");
 
 
 const bookValidationSchema = Joi.object({
@@ -29,7 +29,7 @@ const bookValidationSchema = Joi.object({
     });
 
 
-// ✅ Main function for validation
+// Main function for validation
 exports.validateBook = async (req) => {
     try {
         const data = await bookValidationSchema.validateAsync(req.body);

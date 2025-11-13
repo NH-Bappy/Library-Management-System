@@ -17,7 +17,8 @@ app.use(cookieParser());
 app.use(cors({origin:["http://localhost:3000"]}))
 
 // route
-
+app.use('/api/v1', require('./src/routes/index.api'));
+//global error handling middleWare
 app.use(globalErrorHandler)
 
 

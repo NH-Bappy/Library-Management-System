@@ -1,16 +1,15 @@
 require('dotenv').config();
 const { app } = require('./app');
 const { connectDatabase } = require('./src/database/db.config');
+
 const port = process.env.PORT || 5000;
 
-(async () => {
-  try {
-    await connectDatabase();
+connectDatabase()
+  .then(() => {
     app.listen(port, () => {
       console.log(`Server running on http://localhost:${port}`);
     });
-  } catch (error) {
-    console.error("Failed to start server because DB connection failed:", error.message);
-    process.exit(1);
-  }
-})();
+  })
+  .catch((error) => {
+    console.error("Error from index.js / Database connection failed:", error);
+  });
