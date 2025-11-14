@@ -18,4 +18,14 @@ exports.createLibrary = asyncHandler(async (req , res) => {
     const library = await libraryModel.create({ ...value, coverImage: uploadImage });
     if (!library) throw new CustomError(401, "brand not created");
     apiResponse.sendSuccess(res, 200, "successfully created", library)
-})
+});
+
+// get all the data
+exports.findAllBook = asyncHandler(async(req ,res) => {
+    const AllBook = await libraryModel.find().sort({ createdAt: -1 })
+    if (!AllBook) throw new CustomError(404 ,"book not found");
+    apiResponse.sendSuccess(res, 200, "successfully found all the book", AllBook)
+});
+
+// const { slug } = req.params
+// if (!slug) throw new CustomError(401, "slug is missing")
