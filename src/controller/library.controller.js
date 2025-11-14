@@ -27,5 +27,12 @@ exports.findAllBook = asyncHandler(async(req ,res) => {
     apiResponse.sendSuccess(res, 200, "successfully found all the book", AllBook)
 });
 
-// const { slug } = req.params
-// if (!slug) throw new CustomError(401, "slug is missing")
+
+
+exports.findSingleBook = asyncHandler(async (req, res) => {
+    const { slug } = req.params
+    if (!slug) throw new CustomError(401, "slug is missing")
+    const targetBook = await libraryModel.findOne({ slug })
+    if (!targetBook) throw new CustomError(404, "book not found");
+    apiResponse.sendSuccess(res, 200, "successfully found all the book", targetBook)
+});
