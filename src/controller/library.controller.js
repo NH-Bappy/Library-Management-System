@@ -27,7 +27,7 @@ exports.findAllBook = asyncHandler(async(req ,res) => {
     apiResponse.sendSuccess(res, 200, "successfully found all the book", AllBook)
 });
 
-
+// get target book
 
 exports.findSingleBook = asyncHandler(async (req, res) => {
     const { slug } = req.params
@@ -36,3 +36,31 @@ exports.findSingleBook = asyncHandler(async (req, res) => {
     if (!targetBook) throw new CustomError(404, "book not found");
     apiResponse.sendSuccess(res, 200, "successfully found all the book", targetBook)
 });
+//@desc update library
+
+exports.updateLibrary = asyncHandler(async(req ,res) => {
+    const { slug } = req.params
+    if (!slug) throw new CustomError(401, "slug is missing");
+
+});
+
+
+
+
+
+// @desc delete library
+exports.deleteLibrary = asyncHandler(async (req , res) => {
+    const {slug} = req.params;
+    if(!slug) throw new CustomError(401 , "slug is missing");
+    
+});
+
+
+
+
+
+
+
+
+
+
