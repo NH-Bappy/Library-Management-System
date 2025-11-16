@@ -36,14 +36,14 @@ exports.findSingleBook = asyncHandler(async (req, res) => {
     if (!targetBook) throw new CustomError(404, "book not found");
     apiResponse.sendSuccess(res, 200, "successfully found all the book", targetBook)
 });
-//@desc update library
+//@ update Book information without image
 
 exports.updateBook = asyncHandler(async(req ,res) => {
     const { slug } = req.params
     if (!slug) throw new CustomError(401, "slug is missing");
-
-
-
+    const updateBookInfo = await libraryModel.findOneAndUpdate({slug} , {...req.body} ,{new: true})
+    if(!updateBookInfo) throw new CustomError(401 , "your book information not updated")
+    apiResponse.sendSuccess(res, 200, "successfully update your info", updateBookInfo)
 });
 
 
