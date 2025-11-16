@@ -1,4 +1,4 @@
-const { uploadFileInCloudinary } = require('../helpers/cloudinary');
+const { uploadFileInCloudinary, getPublicId, removeCloudinaryFile } = require('../helpers/cloudinary');
 const libraryModel = require('../models/Library.model');
 const { apiResponse } = require('../utils/apiResponse');
 const { asyncHandler } = require('../utils/asyncHandler');
@@ -38,9 +38,11 @@ exports.findSingleBook = asyncHandler(async (req, res) => {
 });
 //@desc update library
 
-exports.updateLibrary = asyncHandler(async(req ,res) => {
+exports.updateBook = asyncHandler(async(req ,res) => {
     const { slug } = req.params
     if (!slug) throw new CustomError(401, "slug is missing");
+
+
 
 });
 
@@ -49,10 +51,22 @@ exports.updateLibrary = asyncHandler(async(req ,res) => {
 
 
 // @desc delete library
-exports.deleteLibrary = asyncHandler(async (req , res) => {
+exports.deleteBook = asyncHandler(async (req , res) => {
     const {slug} = req.params;
     if(!slug) throw new CustomError(401 , "slug is missing");
     
+    const libraryInfo = await libraryModel.findOne({slug})
+    if(!libraryInfo) throw new CustomError(401 , "library information not found")
+
+    // delete cover image
+    if (libraryInfo.coverImage) {
+        const public_id = getPublicId(libraryInfo.coverImage);
+        if (public_id) await removeCloudinaryFile(public_id);
+    }
+
+    const deleteLibraryBook = await libraryModel.findOneAndDelete({slug})
+    if (!deleteLibraryBook) throw new CustomError(400 , "bad request")
+    apiResponse.sendSuccess(res, 200, "successfully deleted book", deleteLibraryBook)
 });
 
 
